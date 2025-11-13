@@ -1,0 +1,14 @@
+{
+  "feedback": [
+    {
+      "id": "850e8400-e29b-41d4-a716-446655440002",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440005",
+      "studentId": "550e8400-e29b-41d4-a716-446655440002",
+      "rating": 4,
+      "comment": "Nội dung tốt nhưng thời gian hơi ngắn. Mong có thêm buổi tư vấn về deployment.",
+      "state": "SAVED",
+      "createdAt": "2025-11-15T17:30:00Z",
+      "updatedAt": "2025-11-15T17:30:00Z"
+    }
+  ]
+}

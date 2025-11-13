@@ -1,0 +1,78 @@
+{
+  "users": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440001",
+      "role": "STUDENT",
+      "email": "student1@hcmut.edu.vn",
+      "password": "$2a$10$ATeF.Gc4ux2Y5Ks.JKWhiOymMm2IGbBkp2gXrx/LVZYuhGd3m0d.q",
+      "name": "Nguyễn Văn An",
+      "phone": "0123456789",
+      "gender": "MALE",
+      "dob": "2002-05-15",
+      "faculty": "Khoa Khoa học và Kỹ thuật Máy tính",
+      "createdAt": "2025-11-01T10:00:00Z",
+      "updatedAt": "2025-11-13T07:25:36.578Z",
+      "tutorProfile": null
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440002",
+      "role": "STUDENT",
+      "email": "student2@hcmut.edu.vn",
+      "password": "$2a$10$ATeF.Gc4ux2Y5Ks.JKWhiOymMm2IGbBkp2gXrx/LVZYuhGd3m0d.q",
+      "name": "Trần Thị Bình",
+      "phone": "0987654321",
+      "gender": "FEMALE",
+      "dob": "2003-08-20",
+      "faculty": "Khoa Khoa học và Kỹ thuật Máy tính",
+      "createdAt": "2025-11-01T10:00:00Z",
+      "updatedAt": "2025-11-01T10:00:00Z",
+      "tutorProfile": null
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440003",
+      "role": "TUTOR",
+      "email": "tutor1@hcmut.edu.vn",
+      "password": "$2a$10$NA0CE08kiYjwM3RApPaYYeNJwxoUgtMxVKbyQAKpEoJnuaon.Bimm",
+      "name": "TS. Nguyễn Văn Cường",
+      "phone": "0912345678",
+      "gender": "MALE",
+      "dob": "1985-03-20",
+      "faculty": "Khoa Khoa học và Kỹ thuật Máy tính",
+      "createdAt": "2025-11-01T10:00:00Z",
+      "updatedAt": "2025-11-01T10:00:00Z",
+      "tutorProfile": {
+        "expertise": [
+          "Lập trình web",
+          "React",
+          "Node.js",
+          "Cơ sở dữ liệu"
+        ],
+        "bio": "Giảng viên bộ môn Công nghệ Phần mềm với 10 năm kinh nghiệm. Chuyên về phát triển ứng dụng web và mobile.",
+        "officeRoom": "H6-101"
+      }
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440004",
+      "role": "TUTOR",
+      "email": "tutor2@hcmut.edu.vn",
+      "password": "$2a$10$NA0CE08kiYjwM3RApPaYYeNJwxoUgtMxVKbyQAKpEoJnuaon.Bimm",
+      "name": "TS. Lê Thị Diệu",
+      "phone": "0908765432",
+      "gender": "FEMALE",
+      "dob": "1988-07-15",
+      "faculty": "Khoa Khoa học và Kỹ thuật Máy tính",
+      "createdAt": "2025-11-01T10:00:00Z",
+      "updatedAt": "2025-11-01T10:00:00Z",
+      "tutorProfile": {
+        "expertise": [
+          "Machine Learning",
+          "Python",
+          "Data Science",
+          "AI"
+        ],
+        "bio": "Nghiên cứu viên về AI và Machine Learning. Có nhiều công trình nghiên cứu quốc tế.",
+        "officeRoom": "H6-202"
+      }
+    }
+  ]
+}

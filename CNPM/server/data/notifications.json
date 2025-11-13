@@ -1,0 +1,36 @@
+{
+  "notifications": [
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440001",
+      "userId": "550e8400-e29b-41d4-a716-446655440001",
+      "type": "SESSION_UPDATED",
+      "payload": {
+        "sessionId": "650e8400-e29b-41d4-a716-446655440002",
+        "sessionTitle": "Tư vấn thiết kế cơ sở dữ liệu",
+        "message": "Buổi tư vấn 'Tư vấn thiết kế cơ sở dữ liệu' đã được cập nhật thời gian từ 14:00 sang 09:00",
+        "metadata": {
+          "oldStartAt": "2025-11-26T14:00:00Z",
+          "newStartAt": "2025-11-26T09:00:00Z"
+        }
+      },
+      "readAt": null,
+      "createdAt": "2025-11-15T10:30:00Z"
+    },
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440002",
+      "userId": "550e8400-e29b-41d4-a716-446655440002",
+      "type": "SESSION_REMINDER",
+      "payload": {
+        "sessionId": "650e8400-e29b-41d4-a716-446655440001",
+        "sessionTitle": "Hướng dẫn làm đồ án Web với React",
+        "message": "Nhắc nhở: Buổi tư vấn 'Hướng dẫn làm đồ án Web với React' sẽ diễn ra vào ngày 25/11/2025 lúc 14:00",
+        "metadata": {}
+      },
+      "readAt": "2025-11-16T08:00:00Z",
+      "createdAt": "2025-11-15T16:00:00Z"
+    }
+  ]
+}
+
+
+
