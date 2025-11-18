@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/AuthContext'
 
 const MainLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [profileOpen, setProfileOpen] = useState(false)
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
@@ -57,18 +58,23 @@ const MainLayout = ({ children }) => {
                 <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
               </Link>
 
-              <div className="relative group">
-                <button className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100">
+              <div className="relative">
+                <button
+                  onClick={() => setProfileOpen((s) => !s)}
+                  className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100"
+                  aria-haspopup="true"
+                  aria-expanded={profileOpen}
+                >
                   <User size={20} className="text-gray-600" />
                   <span className="hidden md:block text-sm font-medium text-gray-700">
                     {user?.name}
                   </span>
                 </button>
 
-                {/* Dropdown */}
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 hidden group-hover:block">
+                {/* Dropdown - controlled by state to avoid disappearing while moving cursor */}
+                <div className={`absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 ${profileOpen ? 'block' : 'hidden'}`}>
                   <Link
-                    to="/profile"
+                    to={user?.role === 'STUDENT' ? '/profile' : '/tutor/profile'}
                     className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                   >
                     <User size={16} className="mr-2" />

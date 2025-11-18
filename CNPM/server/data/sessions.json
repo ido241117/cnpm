@@ -3,13 +3,13 @@
     {
       "id": "650e8400-e29b-41d4-a716-446655440001",
       "tutorId": "550e8400-e29b-41d4-a716-446655440003",
-      "title": "Hướng dẫn làm đồ án Web với React",
+      "title": "Hướng dẫn làm đồ án Web với React1",
       "description": "Tư vấn về React, Node.js, và các best practices trong phát triển web. Hỗ trợ sinh viên làm đồ án môn Công nghệ phần mềm.",
       "mode": "OFFLINE",
       "room": "H6-101",
       "url": null,
-      "startAt": "2025-11-25T14:00:00Z",
-      "endAt": "2025-11-25T16:00:00Z",
+      "startAt": "2025-11-25T21:00:00",
+      "endAt": "2025-11-25T23:00:00",
       "capacity": 10,
       "currentCount": 2,
       "status": "OPEN",
@@ -19,7 +19,7 @@
         "Node.js"
       ],
       "createdAt": "2025-11-10T09:00:00Z",
-      "updatedAt": "2025-11-10T09:00:00Z"
+      "updatedAt": "2025-11-18T04:52:56.798Z"
     },
     {
       "id": "650e8400-e29b-41d4-a716-446655440002",
@@ -32,7 +32,7 @@
       "startAt": "2025-11-26T09:00:00Z",
       "endAt": "2025-11-26T11:00:00Z",
       "capacity": 15,
-      "currentCount": 8,
+      "currentCount": 7,
       "status": "OPEN",
       "subjects": [
         "Cơ sở dữ liệu",
@@ -53,7 +53,7 @@
       "startAt": "2025-11-27T14:00:00Z",
       "endAt": "2025-11-27T16:30:00Z",
       "capacity": 12,
-      "currentCount": 6,
+      "currentCount": 5,
       "status": "OPEN",
       "subjects": [
         "Machine Learning",
@@ -102,6 +102,26 @@
       ],
       "createdAt": "2025-11-08T09:00:00Z",
       "updatedAt": "2025-11-15T16:00:00Z"
+    },
+    {
+      "id": "650e8400-e29b-41d4-a716-446655440999",
+      "tutorId": "550e8400-e29b-41d4-a716-446655440003",
+      "title": "Test Event Today",
+      "description": "Sự kiện test hiển thị trên lịch cho mục đích kiểm tra.",
+      "mode": "ONLINE",
+      "room": null,
+      "url": "https://meet.google.com/test-event-today",
+      "startAt": "2025-11-18T14:00:00Z",
+      "endAt": "2025-11-18T15:00:00Z",
+      "capacity": 10,
+      "currentCount": 0,
+      "status": "OPEN",
+      "subjects": [
+        "Test",
+        "Lập trình web"
+      ],
+      "createdAt": "2025-11-18T11:35:00Z",
+      "updatedAt": "2025-11-18T11:35:00Z"
     }
   ]
 }

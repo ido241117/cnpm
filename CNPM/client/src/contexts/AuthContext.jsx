@@ -40,12 +40,34 @@ export const AuthProvider = ({ children }) => {
     setUser(null)
   }
 
+  const updateUser = (newUser) => {
+    try {
+      localStorage.setItem('user', JSON.stringify(newUser))
+    } catch (e) {
+      console.error('Failed to update user in localStorage', e)
+    }
+    setUser(newUser)
+  }
+
+  const refreshUser = async () => {
+    try {
+      const res = await authService.getMe()
+      if (res && res.data) {
+        updateUser(res.data)
+      }
+    } catch (err) {
+      console.error('Failed to refresh user', err)
+    }
+  }
+
   const value = {
     user,
     loading,
     login,
     register,
     logout,
+    updateUser,
+    refreshUser,
     isAuthenticated: !!user
   }
 

@@ -228,54 +228,58 @@ const ManageSessions = () => {
               {sessions.map((session) => (
                 <div
                   key={session.id}
-                  className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow"
+                  className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow bg-white"
                 >
-                  <div className="flex items-start justify-between">
+                  <div className="flex items-start justify-between gap-6">
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-3">
                         {session.title}
                       </h3>
-                      <div className="space-y-1 text-sm text-gray-600">
-                        <p>
-                          📅 {formatSessionDate(session.startAt)}
-                        </p>
-                        <p>
-                          🕐 {formatSessionTime(session.startAt)} - {formatSessionTime(session.endAt)}
-                        </p>
-                        <p>
-                          📍 {session.mode === 'ONLINE' ? session.url : session.room}
-                        </p>
-                        <p>
-                          👥 {session.currentCount}/{session.capacity} sinh viên
-                        </p>
-                        <p>
-                          <span className={`px-2 py-1 rounded text-xs font-medium ${
-                            session.status === 'OPEN' ? 'bg-green-100 text-green-800' :
-                            session.status === 'FULL' ? 'bg-yellow-100 text-yellow-800' :
-                            session.status === 'COMPLETED' ? 'bg-gray-100 text-gray-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {session.status}
-                          </span>
-                        </p>
+                      <div className="grid grid-cols-2 gap-3 text-sm text-gray-600">
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">📅</span>
+                          <span>{formatSessionDate(session.startAt)}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">🕐</span>
+                          <span>{formatSessionTime(session.startAt)} - {formatSessionTime(session.endAt)}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">📍</span>
+                          <span>{session.mode === 'ONLINE' ? session.url : session.room}</span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-base">👥</span>
+                          <span>{session.currentCount}/{session.capacity} sinh viên</span>
+                        </div>
+                      </div>
+                      <div className="mt-3">
+                        <span className={`inline-block px-3 py-1 rounded text-xs font-medium ${
+                          session.status === 'OPEN' ? 'bg-green-100 text-green-800' :
+                          session.status === 'FULL' ? 'bg-yellow-100 text-yellow-800' :
+                          session.status === 'COMPLETED' ? 'bg-gray-100 text-gray-800' :
+                          'bg-red-100 text-red-800'
+                        }`}>
+                          {session.status}
+                        </span>
                       </div>
                     </div>
-                    <div className="flex flex-col space-y-2 ml-4">
+                    <div className="flex flex-col gap-2 whitespace-nowrap">
                       <button
                         onClick={() => navigate(`/tutor/sessions/${session.id}/registrations`)}
-                        className="px-4 py-2 text-sm bg-blue-100 text-blue-600 hover:bg-blue-200 rounded transition-colors"
+                        className="px-4 py-2 text-sm font-medium bg-blue-100 text-blue-600 hover:bg-blue-200 rounded-lg transition-colors"
                       >
                         Thông tin khác
                       </button>
                       <button
                         onClick={() => handleEditClick(session)}
-                        className="px-4 py-2 text-sm bg-green-100 text-green-600 hover:bg-green-200 rounded transition-colors"
+                        className="px-4 py-2 text-sm font-medium bg-green-100 text-green-600 hover:bg-green-200 rounded-lg transition-colors"
                       >
                         Sửa
                       </button>
                       <button
                         onClick={() => handleDeleteClick(session)}
-                        className="px-4 py-2 text-sm bg-red-100 text-red-600 hover:bg-red-200 rounded transition-colors"
+                        className="px-4 py-2 text-sm font-medium bg-red-100 text-red-600 hover:bg-red-200 rounded-lg transition-colors"
                       >
                         Xóa
                       </button>

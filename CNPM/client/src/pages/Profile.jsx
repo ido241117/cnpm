@@ -7,7 +7,7 @@ import userService from '../services/userService'
 import sessionService from '../services/sessionService'
 
 const Profile = () => {
-  const { user } = useAuth()
+  const { user, updateUser } = useAuth()
   const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState('register')
   const [isEditing, setIsEditing] = useState(false)
@@ -89,13 +89,17 @@ const Profile = () => {
   const handleConfirmSave = async () => {
     setShowConfirmModal(false)
     try {
-      await userService.updateProfile({
+      const res = await userService.updateProfile({
         name: formData.name,
         phone: formData.phone,
         gender: formData.gender,
         dob: formData.dob,
         faculty: formData.faculty
       })
+      // If server returned updated user, update context + localStorage so UI reflects changes immediately
+      if (res && res.data) {
+        updateUser(res.data)
+      }
       setOriginalData(formData)
       setIsEditing(false)
       setShowSuccessModal(true)
