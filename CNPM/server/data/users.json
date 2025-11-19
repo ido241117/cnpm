@@ -4,7 +4,7 @@
       "id": "550e8400-e29b-41d4-a716-446655440001",
       "role": "STUDENT",
       "email": "student1@hcmut.edu.vn",
-      "password": "$2a$10$EwjVVv4J648X9bWJQClO/OtKU1K9M.N.YGaNMYvcXlrPCnW6nim4i",
+      "password": "$2a$10$/Y28pAhZwPTBJ/WCm0kue.jWX6WRE.0iDr2uq.gz78IwIurLikMgW",
       "name": "Nguyễn Văn C",
       "phone": "0123456789",
       "gender": "MALE",
@@ -18,7 +18,7 @@
       "id": "550e8400-e29b-41d4-a716-446655440002",
       "role": "STUDENT",
       "email": "student2@hcmut.edu.vn",
-      "password": "$2a$10$EwjVVv4J648X9bWJQClO/OtKU1K9M.N.YGaNMYvcXlrPCnW6nim4i",
+      "password": "$2a$10$/Y28pAhZwPTBJ/WCm0kue.jWX6WRE.0iDr2uq.gz78IwIurLikMgW",
       "name": "Trần Thị Bình",
       "phone": "0987654321",
       "gender": "FEMALE",
@@ -32,30 +32,28 @@
       "id": "550e8400-e29b-41d4-a716-446655440003",
       "role": "TUTOR",
       "email": "tutor1@hcmut.edu.vn",
-      "password": "$2a$10$FY8KWotaxV52Qlysb2x30uoC4NRjb3UI2ps..NwWxBOhzF5M4wnQa",
-      "name": "TS. Nguyễn Văn Cường1",
+      "password": "$2a$10$z5CEjUDqWkeYiJRFjlGpuuGRMrILqqE6q0zACve5Ka8kaCem81ibG",
+      "name": "TS. Nguyễn Văn Cường2",
       "phone": "0912345678",
       "gender": "MALE",
       "dob": "1985-03-20",
       "faculty": "Khoa Khoa học và Kỹ thuật Máy tính",
       "createdAt": "2025-11-01T10:00:00Z",
-      "updatedAt": "2025-11-18T03:51:40.155Z",
+      "updatedAt": "2025-11-18T05:37:54.877Z",
       "tutorProfile": {
         "expertise": [
           "Lập trình web",
           "React",
           "Node.js",
           "Cơ sở dữ liệu"
-        ],
-        "bio": "Giảng viên bộ môn Công nghệ Phần mềm với 10 năm kinh nghiệm. Chuyên về phát triển ứng dụng web và mobile.",
-        "officeRoom": "H6-101"
+        ]
       }
     },
     {
       "id": "550e8400-e29b-41d4-a716-446655440004",
       "role": "TUTOR",
       "email": "tutor2@hcmut.edu.vn",
-      "password": "$2a$10$FY8KWotaxV52Qlysb2x30uoC4NRjb3UI2ps..NwWxBOhzF5M4wnQa",
+      "password": "$2a$10$z5CEjUDqWkeYiJRFjlGpuuGRMrILqqE6q0zACve5Ka8kaCem81ibG",
       "name": "TS. Lê Thị Diệu",
       "phone": "0908765432",
       "gender": "FEMALE",

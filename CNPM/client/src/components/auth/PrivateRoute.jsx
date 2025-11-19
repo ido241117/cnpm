@@ -19,7 +19,7 @@ const PrivateRoute = ({ children, role }) => {
 
   if (role && user.role !== role) {
     const redirectPath = user.role === 'STUDENT' 
-      ? '/profile' 
+      ? '/student/dashboard' 
       : '/tutor/dashboard'
     return <Navigate to={redirectPath} replace />
   }

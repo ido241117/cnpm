@@ -17,7 +17,7 @@ const Login = () => {
   useEffect(() => {
     if (user) {
       const redirectPath = user.role === 'STUDENT' 
-        ? '/profile' 
+        ? '/student/dashboard' 
         : '/tutor/dashboard'
       navigate(redirectPath)
     }
