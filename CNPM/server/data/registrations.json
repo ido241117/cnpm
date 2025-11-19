@@ -52,9 +52,137 @@
       "id": "1763350607914-tm2xh3zrb",
       "sessionId": "650e8400-e29b-41d4-a716-446655440001",
       "studentId": "550e8400-e29b-41d4-a716-446655440001",
-      "status": "JOINED",
+      "status": "CANCELLED",
       "createdAt": "2025-11-17T03:36:47.914Z",
-      "updatedAt": "2025-11-17T03:36:47.914Z"
+      "updatedAt": "2025-11-19T03:15:35.393Z"
+    },
+    {
+      "id": "1763522107521-ugrm7tmf6",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440999",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:15:07.521Z",
+      "updatedAt": "2025-11-19T03:15:36.722Z"
+    },
+    {
+      "id": "1763522114383-adu8m9dj6",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440003",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:15:14.383Z",
+      "updatedAt": "2025-11-19T03:15:37.938Z"
+    },
+    {
+      "id": "1763522117056-fz0uaxm5p",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440002",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:15:17.056Z",
+      "updatedAt": "2025-11-19T03:15:33.538Z"
+    },
+    {
+      "id": "1763522140088-hj56m4xvp",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440001",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:15:40.088Z",
+      "updatedAt": "2025-11-19T03:16:01.813Z"
+    },
+    {
+      "id": "1763522142704-uyq4zn57n",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440002",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:15:42.704Z",
+      "updatedAt": "2025-11-19T03:16:03.642Z"
+    },
+    {
+      "id": "1763522144863-ut3rpfgzc",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440003",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:15:44.863Z",
+      "updatedAt": "2025-11-19T03:16:06.692Z"
+    },
+    {
+      "id": "1763522150048-5ym5qti7e",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440999",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:15:50.048Z",
+      "updatedAt": "2025-11-19T03:16:08.073Z"
+    },
+    {
+      "id": "1763522176728-089xvvrmc",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440002",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:16:16.728Z",
+      "updatedAt": "2025-11-19T03:16:35.761Z"
+    },
+    {
+      "id": "1763522179688-q2epm2l8u",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440003",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:16:19.688Z",
+      "updatedAt": "2025-11-19T03:16:37.072Z"
+    },
+    {
+      "id": "1763522205680-mo61mw89o",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440001",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:16:45.680Z",
+      "updatedAt": "2025-11-19T03:26:08.586Z"
+    },
+    {
+      "id": "1763522257184-e7w9y9hpk",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440002",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:17:37.184Z",
+      "updatedAt": "2025-11-19T03:26:10.323Z"
+    },
+    {
+      "id": "1763522780736-39yy5poe0",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440001",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:26:20.736Z",
+      "updatedAt": "2025-11-19T03:26:28.024Z"
+    },
+    {
+      "id": "1763522793118-5ndjwlzk1",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440001",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:26:33.118Z",
+      "updatedAt": "2025-11-19T03:26:44.947Z"
+    },
+    {
+      "id": "1763522806782-g9noxlblr",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440001",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:26:46.782Z",
+      "updatedAt": "2025-11-19T03:26:50.800Z"
+    },
+    {
+      "id": "1763522834127-079mozmsg",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440002",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:27:14.127Z",
+      "updatedAt": "2025-11-19T03:27:16.887Z"
+    },
+    {
+      "id": "1763524526766-fjpbhv15c",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440002",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T03:55:26.766Z",
+      "updatedAt": "2025-11-19T03:55:32.304Z"
     }
   ]
 }

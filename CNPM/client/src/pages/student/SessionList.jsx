@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Bell } from 'lucide-react'
 import MainLayout from '../../components/Layout/MainLayout'
+import ErrorBoundary from '../../components/common/ErrorBoundary'
 import { useAuth } from '../../contexts/AuthContext'
 import sessionService from '../../services/sessionService'
 import toast from 'react-hot-toast'
@@ -12,6 +13,14 @@ const SessionList = () => {
 
   const [sessions, setSessions] = useState([])
   const [loading, setLoading] = useState(true)
+  const [allSessions, setAllSessions] = useState([])
+  const [tutorQuery, setTutorQuery] = useState('')
+  const [subjectFilter, setSubjectFilter] = useState('')
+  const [dateFilter, setDateFilter] = useState('')
+  // viewState: 1 = default (show Chọn tutor button),
+  // 2 = tutor search + Gợi ý tutor / Thoát buttons,
+  // 3 = subject + date inputs side-by-side + Thoát
+  const [viewState, setViewState] = useState(1)
   const [selectedSession, setSelectedSession] = useState(null)
   const [showDetail, setShowDetail] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
@@ -22,7 +31,9 @@ const SessionList = () => {
     setLoading(true)
     try {
       const res = await sessionService.getSessions()
-      setSessions(res.data || [])
+      const data = res.data || []
+      setAllSessions(data)
+      setSessions(data)
     } catch (err) {
       console.error(err)
       toast.error('Không thể tải danh sách buổi tư vấn')
@@ -43,6 +54,40 @@ const SessionList = () => {
   }
 
   const formatSessionDate = (ds='') => ds ? new Date(ds).toLocaleDateString('vi-VN',{ weekday:'short', year:'numeric', month:'short', day:'numeric' }) : ''
+
+  const subjectsList = React.useMemo(() => {
+    try {
+      const subjects = new Set()
+      ;(allSessions || []).forEach(s => (s.subjects || []).forEach(sub => subjects.add(sub)))
+      return Array.from(subjects)
+    } catch (err) {
+      console.error('Error computing subjects list', err)
+      return []
+    }
+  }, [allSessions])
+
+  const applyFilters = (tutor = tutorQuery, subject = subjectFilter, date = dateFilter) => {
+    let filtered = allSessions || []
+    if (tutor && tutor.trim()) {
+      const q = tutor.toLowerCase()
+      filtered = filtered.filter(s => (s.tutor?.name || '').toLowerCase().includes(q))
+    }
+    if (subject) {
+      filtered = filtered.filter(s => (s.subjects || []).includes(subject))
+    }
+    if (date) {
+      // compare only date part (YYYY-MM-DD)
+      filtered = filtered.filter(s => {
+        if (!s.startAt) return false
+        const sDate = new Date(s.startAt)
+        const yyyy = sDate.getFullYear()
+        const mm = String(sDate.getMonth() + 1).padStart(2, '0')
+        const dd = String(sDate.getDate()).padStart(2, '0')
+        return `${yyyy}-${mm}-${dd}` === date
+      })
+    }
+    setSessions(filtered)
+  }
 
   if (showDetail && selectedSession) {
     return (
@@ -69,13 +114,76 @@ const SessionList = () => {
   }
 
   return (
+    <ErrorBoundary>
     <MainLayout>
       <main className="max-w-7xl mx-auto px-6 py-8">
-        <div className="mb-6 flex items-center justify-between">
-          <input type="text" placeholder="Tìm kiếm" className="px-4 py-2 border rounded" onChange={(e)=>{ const q=e.target.value.toLowerCase(); if(!q) return fetchSessions(); setSessions(prev=>prev.filter(s=> (s.title||'').toLowerCase().includes(q) || (s.tutor?.name||'').toLowerCase().includes(q) ))}} />
-          <div className="flex items-center gap-4">
-            <button onClick={()=>navigate('/notifications')}><Bell size={20} /></button>
-            <div className="text-sm">Welcome, {user?.name?.split(' ').pop() || 'User'}</div>
+        <div className="mb-6">
+          <div className="bg-gradient-to-r from-blue-100 via-white to-yellow-100 p-4 rounded-lg">
+            <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-4">
+              {/* Left area: big button / search / subject+date */}
+              <div className="flex-1 w-full">
+                {viewState === 1 && (
+                  <div className="flex items-center">
+                    <button
+                      onClick={() => setViewState(2)}
+                      className="bg-blue-500 text-white px-6 py-3 rounded-full shadow-md text-lg"
+                    >
+                      Chọn tutor
+                    </button>
+                  </div>
+                )}
+
+                {viewState === 2 && (
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Nhập tên hoặc mã số tutor"
+                      value={tutorQuery}
+                      onChange={(e) => { setTutorQuery(e.target.value); applyFilters(e.target.value, subjectFilter, dateFilter) }}
+                      className="px-4 py-3 border rounded w-full"
+                    />
+                  </div>
+                )}
+
+                {viewState === 3 && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <select
+                      value={subjectFilter}
+                      onChange={(e) => { setSubjectFilter(e.target.value); applyFilters(tutorQuery, e.target.value, dateFilter) }}
+                      className="px-4 py-3 border rounded w-full"
+                    >
+                      <option value="">Tất cả chuyên ngành</option>
+                      {subjectsList.map((sub) => (
+                        <option key={sub} value={sub}>{sub}</option>
+                      ))}
+                    </select>
+
+                    <input
+                      type="date"
+                      value={dateFilter}
+                      onChange={(e) => { setDateFilter(e.target.value); applyFilters(tutorQuery, subjectFilter, e.target.value) }}
+                      className="px-4 py-3 border rounded w-full"
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Right area: action buttons depending on state */}
+              <div className="flex items-center gap-3">
+                {viewState === 2 && (
+                  <>
+                    <button onClick={() => setViewState(3)} className="px-4 py-2 bg-blue-500 text-white rounded">Gợi ý tutor</button>
+                    <button onClick={() => { setViewState(1); setTutorQuery(''); setSubjectFilter(''); setDateFilter(''); applyFilters('', '', '') }} className="px-4 py-2 bg-white border rounded">Thoát</button>
+                  </>
+                )}
+
+                {viewState === 3 && (
+                  <>
+                    <button onClick={() => { setViewState(1); setTutorQuery(''); setSubjectFilter(''); setDateFilter(''); applyFilters('', '', '') }} className="px-4 py-2 bg-white border rounded">Thoát</button>
+                  </>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -96,6 +204,7 @@ const SessionList = () => {
         </div>
       </main>
     </MainLayout>
+    </ErrorBoundary>
   )
 }
 

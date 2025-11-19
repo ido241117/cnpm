@@ -11,7 +11,7 @@
       "startAt": "2025-11-25T21:00:00",
       "endAt": "2025-11-25T23:00:00",
       "capacity": 10,
-      "currentCount": 2,
+      "currentCount": 1,
       "status": "OPEN",
       "subjects": [
         "Lập trình web",
