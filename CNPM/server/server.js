@@ -266,6 +266,29 @@ app.patch('/api/users/me', authenticate, async (req, res) => {
 
 // ============ SESSION ROUTES ============
 
+// Helper: validate session time window (07:00 - 18:00)
+function isWithinAllowedHours(startAt, endAt) {
+  try {
+    const s = new Date(startAt);
+    const e = new Date(endAt);
+    if (isNaN(s.getTime()) || isNaN(e.getTime())) return false;
+    // must be same calendar day
+    if (s.getFullYear() !== e.getFullYear() || s.getMonth() !== e.getMonth() || s.getDate() !== e.getDate()) return false;
+    const startMinutes = s.getHours() * 60 + s.getMinutes();
+    const endMinutes = e.getHours() * 60 + e.getMinutes();
+    const minAllowed = 7 * 60; // 07:00
+    const maxAllowed = 18 * 60; // 18:00
+    // start must be >= 07:00 and end must be <= 18:00
+    if (startMinutes < minAllowed) return false;
+    if (endMinutes > maxAllowed) return false;
+    // sanity: start < end
+    if (startMinutes >= endMinutes) return false;
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
 // GET /api/sessions
 app.get('/api/sessions', authenticate, async (req, res) => {
   try {
@@ -375,6 +398,14 @@ app.post('/api/sessions', authenticate, authorize('TUTOR'), async (req, res) => 
       return res.status(400).json({
         success: false,
         error: { code: 'VALIDATION_ERROR', message: 'Thời gian bắt đầu phải trước thời gian kết thúc' }
+      });
+    }
+
+    // Validate allowed hours (07:00 - 18:00)
+    if (!isWithinAllowedHours(startAt, endAt)) {
+      return res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'Buổi tư vấn chỉ được đặt trong khung giờ 07:00 - 18:00 và trong cùng một ngày' }
       });
     }
     
@@ -504,6 +535,16 @@ app.patch('/api/sessions/:id', authenticate, authorize('TUTOR'), async (req, res
         success: false,
         error: { code: 'VALIDATION_ERROR', message: 'Thời gian bắt đầu phải trước thời gian kết thúc' }
       });
+    }
+
+    // Validate allowed hours if times provided/updated
+    if (updates.startAt && updates.endAt) {
+      if (!isWithinAllowedHours(updates.startAt, updates.endAt)) {
+        return res.status(400).json({
+          success: false,
+          error: { code: 'VALIDATION_ERROR', message: 'Buổi tư vấn chỉ được đặt trong khung giờ 07:00 - 18:00 và trong cùng một ngày' }
+        });
+      }
     }
     
     // Update session
@@ -690,6 +731,14 @@ app.post('/api/sessions/:id/register', authenticate, authorize('STUDENT'), async
       return res.status(400).json({
         success: false,
         error: { code: 'SESSION_FULL', message: 'Buổi tư vấn đã đầy' }
+      });
+    }
+
+    // Ensure session times are within allowed hours (07:00 - 18:00)
+    if (!isWithinAllowedHours(session.startAt, session.endAt)) {
+      return res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'Buổi tư vấn không nằm trong khung giờ cho phép (07:00 - 18:00)' }
       });
     }
     

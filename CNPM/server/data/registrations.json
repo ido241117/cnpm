@@ -183,6 +183,14 @@
       "status": "CANCELLED",
       "createdAt": "2025-11-19T03:55:26.766Z",
       "updatedAt": "2025-11-19T03:55:32.304Z"
+    },
+    {
+      "id": "1763525839632-gkawwd2ro",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440001",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-19T04:17:19.632Z",
+      "updatedAt": "2025-11-19T04:17:23.999Z"
     }
   ]
 }

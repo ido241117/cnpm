@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Bell } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
 import toast from 'react-hot-toast'
 import sessionService from '../../services/sessionService'
+import MainLayout from '../../components/Layout/MainLayout'
 
 const CreateSession = () => {
   const { user } = useAuth()
@@ -11,8 +11,8 @@ const CreateSession = () => {
   
   const [formData, setFormData] = useState({
     title: '',
-    startTime: '02:30',
-    endTime: '05:30',
+    startTime: '07:00',
+    endTime: '08:00',
     date: '',
     location: '',
     description: '',
@@ -97,57 +97,9 @@ const CreateSession = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <button 
-              onClick={() => navigate('/tutor/dashboard')}
-              className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors cursor-pointer"
-            >
-              <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-              </svg>
-            </button>
-
-            <div className="flex items-center space-x-4">
-              <button 
-                onClick={() => navigate('/notifications')}
-                className="p-2 hover:bg-gray-100 rounded-full relative"
-              >
-                <Bell size={24} className="text-gray-600" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-              </button>
-
-              <div className="flex items-center space-x-3">
-                <img
-                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=4F46E5&color=fff`}
-                  alt="Avatar"
-                  className="w-12 h-12 rounded-full"
-                />
-                <div>
-                  <p className="text-lg font-medium text-gray-900">Welcome, {user?.name?.split(' ').pop() || 'User'}</p>
-                  <p className="text-sm text-gray-500">{getCurrentDate()}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
+    <MainLayout>
       <main className="max-w-7xl mx-auto px-6 py-8">
-        <div className="bg-gradient-to-r from-blue-100 via-blue-50 to-yellow-50 rounded-t-2xl p-6">
-          <button
-            onClick={() => navigate('/tutor/dashboard')}
-            className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition-colors"
-          >
-            Tạo buổi tư vấn
-          </button>
-        </div>
-
-        <div className="bg-white rounded-b-2xl shadow-sm p-8">
+        <div className="bg-white rounded-2xl shadow-sm p-8">
           <h2 className="text-2xl font-semibold text-blue-500 text-center mb-8">
             Add Schedule
           </h2>
@@ -174,33 +126,53 @@ const CreateSession = () => {
                 Giờ
               </label>
               <div className="flex-1 flex items-center gap-4">
-                <select
-                  name="startTime"
-                  value={formData.startTime}
-                  onChange={handleChange}
-                  className="px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
-                >
-                  <option value="02:30">02:30</option>
-                  <option value="05:30">05:30</option>
-                  <option value="08:00">08:00</option>
-                  <option value="10:00">10:00</option>
-                  <option value="14:00">14:00</option>
-                  <option value="16:00">16:00</option>
-                </select>
+                  <select
+                    name="startTime"
+                    value={formData.startTime}
+                    onChange={handleChange}
+                    className="px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
+                  >
+                    {(() => {
+                      const opts = [];
+                      // generate 30-minute steps from 07:00 to 18:00 (inclusive)
+                      for (let h = 7; h <= 18; h++) {
+                        for (let m of [0, 30]) {
+                          const hh = String(h).padStart(2,'0');
+                          const mm = String(m).padStart(2,'0');
+                          const val = `${hh}:${mm}`;
+                          opts.push(<option key={val} value={val}>{val}</option>);
+                          // don't add 18:30
+                          if (h === 18) break;
+                        }
+                      }
+                      return opts;
+                    })()}
+                  </select>
                 <span className="text-gray-500">-</span>
-                <select
-                  name="endTime"
-                  value={formData.endTime}
-                  onChange={handleChange}
-                  className="px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
-                >
-                  <option value="05:30">05:30</option>
-                  <option value="08:00">08:00</option>
-                  <option value="10:00">10:00</option>
-                  <option value="12:00">12:00</option>
-                  <option value="16:00">16:00</option>
-                  <option value="18:00">18:00</option>
-                </select>
+                  <select
+                    name="endTime"
+                    value={formData.endTime}
+                    onChange={handleChange}
+                    className="px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
+                  >
+                    {(() => {
+                      const opts = [];
+                      for (let h = 7; h <= 18; h++) {
+                        for (let m of [0, 30]) {
+                          const hh = String(h).padStart(2,'0');
+                          const mm = String(m).padStart(2,'0');
+                          const val = `${hh}:${mm}`;
+                          opts.push(<option key={val} value={val}>{val}</option>);
+                          if (h === 18) break;
+                        }
+                      }
+                      // ensure 18:00 present explicitly
+                      if (!opts.some(o => o.props && o.props.value === '18:00')) {
+                        opts.push(<option key={'18:00'} value={'18:00'}>{'18:00'}</option>);
+                      }
+                      return opts;
+                    })()}
+                  </select>
               </div>
             </div>
 
@@ -331,7 +303,7 @@ const CreateSession = () => {
           </div>
         </div>
       )}
-    </div>
+    </MainLayout>
   )
 }
 
