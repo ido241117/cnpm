@@ -116,7 +116,7 @@ const SessionDetail = () => {
                   {actionLoading ? 'Đang...' : (session.currentCount >= session.capacity ? 'Đã đầy' : 'Đăng ký')}
                 </button>
               ) : (
-                <button onClick={handleUnregister} disabled={actionLoading} className="px-6 py-2 bg-red-500 text-white rounded-lg">{actionLoading ? 'Đang...' : 'Hủy đăng ký'}</button>
+                <span className="inline-block px-4 py-2 bg-gray-100 text-gray-700 rounded-lg">Đã đăng ký</span>
               )}
             </div>
           </div>

@@ -271,6 +271,22 @@
       "status": "CANCELLED",
       "createdAt": "2025-11-22T02:08:02.904Z",
       "updatedAt": "2025-11-22T02:08:03.384Z"
+    },
+    {
+      "id": "1763779057506-j2awqx7yn",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440002",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "CANCELLED",
+      "createdAt": "2025-11-22T02:37:37.506Z",
+      "updatedAt": "2025-11-22T02:37:38.392Z"
+    },
+    {
+      "id": "1763779061017-81tojwtj3",
+      "sessionId": "650e8400-e29b-41d4-a716-446655440002",
+      "studentId": "550e8400-e29b-41d4-a716-446655440001",
+      "status": "JOINED",
+      "createdAt": "2025-11-22T02:37:41.017Z",
+      "updatedAt": "2025-11-22T02:37:41.017Z"
     }
   ]
 }
