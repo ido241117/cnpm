@@ -14,6 +14,7 @@ const SessionList = () => {
   const [sessions, setSessions] = useState([])
   const [loading, setLoading] = useState(true)
   const [allSessions, setAllSessions] = useState([])
+  const [joinedSessionIds, setJoinedSessionIds] = useState(new Set())
   const [tutorQuery, setTutorQuery] = useState('')
   const [subjectFilter, setSubjectFilter] = useState('')
   const [dateFilter, setDateFilter] = useState('')
@@ -27,6 +28,18 @@ const SessionList = () => {
 
   useEffect(() => { fetchSessions() }, [])
 
+  // load student's registrations
+  const loadMyRegistrations = async () => {
+    try {
+      const res = await sessionService.getMyRegistrations()
+      const regs = res.data || []
+      const ids = new Set(regs.map(r => r.sessionId || (r.session && r.session.id) || r.sessionId))
+      setJoinedSessionIds(ids)
+    } catch (err) {
+      console.error('Error loading my registrations', err)
+    }
+  }
+
   async function fetchSessions() {
     setLoading(true)
     try {
@@ -34,6 +47,8 @@ const SessionList = () => {
       const data = res.data || []
       setAllSessions(data)
       setSessions(data)
+      // also load my registrations to mark joined sessions
+      await loadMyRegistrations()
     } catch (err) {
       console.error(err)
       toast.error('Không thể tải danh sách buổi tư vấn')
@@ -41,10 +56,47 @@ const SessionList = () => {
   }
 
   const handleSessionClick = (session) => { setSelectedSession(session); setShowDetail(true) }
+  const [actionLoading, setActionLoading] = useState(false)
+
   const handleRegister = async () => {
     if (!selectedSession) return
-    try { await sessionService.registerSession(selectedSession.id); setShowSuccessModal(true) }
-    catch (err) { console.error(err); toast.error(err?.response?.data?.error?.message || 'Đăng ký không thành công') }
+    setActionLoading(true)
+    try {
+      await sessionService.registerSession(selectedSession.id)
+      // update local registration set
+      setJoinedSessionIds(prev => new Set(prev).add(selectedSession.id))
+      // update session counts locally
+      setAllSessions(prev => prev.map(s => s.id === selectedSession.id ? { ...s, currentCount: (s.currentCount || 0) + 1, status: ((s.currentCount || 0) + 1) >= s.capacity ? 'FULL' : s.status } : s))
+      setSessions(prev => prev.map(s => s.id === selectedSession.id ? { ...s, currentCount: (s.currentCount || 0) + 1, status: ((s.currentCount || 0) + 1) >= s.capacity ? 'FULL' : s.status } : s))
+      setSelectedSession(prev => prev ? { ...prev, currentCount: (prev.currentCount || 0) + 1, status: ((prev.currentCount || 0) + 1) >= prev.capacity ? 'FULL' : prev.status } : prev)
+      setShowSuccessModal(true)
+      toast.success('Đăng ký thành công')
+    } catch (err) {
+      console.error(err)
+      toast.error(err?.response?.data?.error?.message || 'Đăng ký không thành công')
+    } finally { setActionLoading(false) }
+  }
+
+  const handleUnregister = async () => {
+    if (!selectedSession) return
+    setActionLoading(true)
+    try {
+      await sessionService.unregisterSession(selectedSession.id)
+      // remove from joined set
+      setJoinedSessionIds(prev => {
+        const n = new Set(prev)
+        n.delete(selectedSession.id)
+        return n
+      })
+      // update session counts locally
+      setAllSessions(prev => prev.map(s => s.id === selectedSession.id ? { ...s, currentCount: Math.max((s.currentCount || 1) - 1, 0), status: (s.status === 'FULL' ? 'OPEN' : s.status) } : s))
+      setSessions(prev => prev.map(s => s.id === selectedSession.id ? { ...s, currentCount: Math.max((s.currentCount || 1) - 1, 0), status: (s.status === 'FULL' ? 'OPEN' : s.status) } : s))
+      setSelectedSession(prev => prev ? { ...prev, currentCount: Math.max((prev.currentCount || 1) - 1, 0), status: (prev.status === 'FULL' ? 'OPEN' : prev.status) } : prev)
+      toast.success('Hủy đăng ký thành công')
+    } catch (err) {
+      console.error(err)
+      toast.error(err?.response?.data?.error?.message || 'Hủy đăng ký không thành công')
+    } finally { setActionLoading(false) }
   }
 
   const getCurrentDate = () => {
@@ -102,7 +154,11 @@ const SessionList = () => {
               <p className="text-sm text-gray-600">{formatSessionDate(selectedSession.startAt)}</p>
               <p className="mt-4">{selectedSession.description}</p>
               <div className="mt-6 flex gap-4">
-                <button onClick={handleRegister} className="px-6 py-2 bg-blue-500 text-white rounded">Đăng ký</button>
+                {joinedSessionIds.has(selectedSession.id) ? (
+                  <button onClick={handleUnregister} disabled={actionLoading} className="px-6 py-2 bg-red-500 text-white rounded">Hủy đăng ký</button>
+                ) : (
+                  <button onClick={handleRegister} disabled={actionLoading} className="px-6 py-2 bg-blue-500 text-white rounded">{actionLoading ? 'Đang...' : 'Đăng ký'}</button>
+                )}
                 <button onClick={() => setShowDetail(false)} className="px-6 py-2 bg-gray-200 rounded">Trở lại</button>
               </div>
             </div>

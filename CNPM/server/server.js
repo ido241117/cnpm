@@ -344,6 +344,77 @@ app.get('/api/sessions', authenticate, async (req, res) => {
   }
 });
 
+// ============ NOTIFICATIONS ============
+
+// GET /api/notifications - returns notifications for current user
+app.get('/api/notifications', authenticate, async (req, res) => {
+  try {
+    const notificationsData = await readJSON('notifications.json');
+    if (!notificationsData) {
+      return res.status(500).json({ success: false, error: { code: 'SERVER_ERROR', message: 'Không thể đọc dữ liệu thông báo' } });
+    }
+
+    const userNotifications = (notificationsData.notifications || []).filter(n => n.userId === req.user.userId);
+    // return sorted by createdAt desc
+    userNotifications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    res.json({ success: true, data: userNotifications });
+  } catch (err) {
+    console.error('Get notifications error:', err);
+    res.status(500).json({ success: false, error: { code: 'SERVER_ERROR', message: 'Lỗi lấy thông báo' } });
+  }
+});
+
+// PATCH /api/notifications/:id/read - mark a notification as read
+app.patch('/api/notifications/:id/read', authenticate, async (req, res) => {
+  try {
+    const id = req.params.id;
+    const notificationsData = await readJSON('notifications.json');
+    if (!notificationsData) {
+      return res.status(500).json({ success: false, error: { code: 'SERVER_ERROR', message: 'Không thể đọc dữ liệu thông báo' } });
+    }
+
+    const idx = notificationsData.notifications.findIndex(n => n.id === id && n.userId === req.user.userId);
+    if (idx === -1) {
+      return res.status(404).json({ success: false, error: { code: 'NOT_FOUND', message: 'Không tìm thấy thông báo' } });
+    }
+
+    notificationsData.notifications[idx].readAt = new Date().toISOString();
+    await writeJSON('notifications.json', notificationsData);
+
+    res.json({ success: true, data: notificationsData.notifications[idx] });
+  } catch (err) {
+    console.error('Mark notification read error:', err);
+    res.status(500).json({ success: false, error: { code: 'SERVER_ERROR', message: 'Lỗi cập nhật thông báo' } });
+  }
+});
+
+// PATCH /api/notifications/read-all - mark all user's notifications as read
+app.patch('/api/notifications/read-all', authenticate, async (req, res) => {
+  try {
+    const notificationsData = await readJSON('notifications.json');
+    if (!notificationsData) {
+      return res.status(500).json({ success: false, error: { code: 'SERVER_ERROR', message: 'Không thể đọc dữ liệu thông báo' } });
+    }
+
+    let changed = false;
+    notificationsData.notifications = (notificationsData.notifications || []).map(n => {
+      if (n.userId === req.user.userId && !n.readAt) {
+        changed = true;
+        return { ...n, readAt: new Date().toISOString() };
+      }
+      return n;
+    });
+
+    if (changed) await writeJSON('notifications.json', notificationsData);
+
+    res.json({ success: true, message: 'Đã đánh dấu tất cả thông báo là đã đọc' });
+  } catch (err) {
+    console.error('Mark all notifications read error:', err);
+    res.status(500).json({ success: false, error: { code: 'SERVER_ERROR', message: 'Lỗi cập nhật thông báo' } });
+  }
+});
+
 // GET /api/sessions/:id
 app.get('/api/sessions/:id', authenticate, async (req, res) => {
   try {
