@@ -5,6 +5,7 @@ import MainLayout from '../../components/Layout/MainLayout'
 import ErrorBoundary from '../../components/common/ErrorBoundary'
 import { useAuth } from '../../contexts/AuthContext'
 import sessionService from '../../services/sessionService'
+import notificationService from '../../services/notificationService'
 import toast from 'react-hot-toast'
 
 const SessionList = () => {
@@ -25,6 +26,8 @@ const SessionList = () => {
   const [selectedSession, setSelectedSession] = useState(null)
   const [showDetail, setShowDetail] = useState(false)
   const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [notifications, setNotifications] = useState([])
+  const [notifLoading, setNotifLoading] = useState(false)
 
   useEffect(() => { fetchSessions() }, [])
 
@@ -54,6 +57,21 @@ const SessionList = () => {
       toast.error('Không thể tải danh sách buổi tư vấn')
     } finally { setLoading(false) }
   }
+
+  // Notifications
+  const loadNotifications = async () => {
+    setNotifLoading(true)
+    try {
+      const res = await notificationService.getNotifications()
+      setNotifications(res.data || [])
+    } catch (err) {
+      console.error('Error loading notifications', err)
+    } finally {
+      setNotifLoading(false)
+    }
+  }
+
+  useEffect(() => { loadNotifications() }, [])
 
   const handleSessionClick = (session) => { setSelectedSession(session); setShowDetail(true) }
   const [actionLoading, setActionLoading] = useState(false)
@@ -162,7 +180,67 @@ const SessionList = () => {
                 <button onClick={() => setShowDetail(false)} className="px-6 py-2 bg-gray-200 rounded">Trở lại</button>
               </div>
             </div>
-            <div className="bg-white rounded p-6">Thông báo</div>
+            <div className="bg-white rounded p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-medium">Thông báo</h3>
+                <button
+                  onClick={async () => {
+                    try {
+                      await notificationService.markAllRead()
+                      setNotifications(prev => prev.map(n => ({ ...n, read: true })))
+                      toast.success('Đã đánh dấu tất cả là đã đọc')
+                    } catch (err) {
+                      console.error(err)
+                      toast.error('Không thể đánh dấu tất cả')
+                    }
+                  }}
+                  className="text-sm text-blue-500 hover:underline"
+                >
+                  Đánh dấu tất cả
+                </button>
+              </div>
+
+              {notifLoading ? (
+                <p className="text-sm text-gray-500">Đang tải...</p>
+              ) : notifications.length === 0 ? (
+                <p className="text-sm text-gray-500">Chưa có thông báo</p>
+              ) : (
+                <ul className="space-y-3 max-h-60 overflow-auto">
+                  {notifications.slice(0,5).map(n => (
+                    <li key={n.id} className="p-3 border rounded hover:bg-gray-50">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <div className={`text-sm ${n.read ? 'text-gray-600' : 'text-gray-900 font-medium'}`}>{n.message}</div>
+                          <div className="text-xs text-gray-400 mt-1">{n.payload?.sessionTitle || new Date(n.createdAt).toLocaleString()}</div>
+                        </div>
+                        <div className="ml-3 flex-shrink-0">
+                          {!n.read && (
+                            <button
+                              onClick={async () => {
+                                try {
+                                  await notificationService.markRead(n.id)
+                                  setNotifications(prev => prev.map(x => x.id === n.id ? { ...x, read: true } : x))
+                                } catch (err) {
+                                  console.error(err)
+                                  toast.error('Không thể cập nhật thông báo')
+                                }
+                              }}
+                              className="text-sm text-blue-500 hover:underline"
+                            >
+                              Đánh dấu
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+
+              <div className="mt-4 text-center">
+                <button onClick={() => navigate('/notifications')} className="text-sm text-blue-600 hover:underline">Xem tất cả</button>
+              </div>
+            </div>
           </div>
         </main>
       </MainLayout>
@@ -256,7 +334,28 @@ const SessionList = () => {
               )
             )}
           </div>
-          <div className="bg-white rounded p-6">Thông báo</div>
+          <div className="bg-white rounded p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-medium">Thông báo</h3>
+            </div>
+            {notifLoading ? (
+              <p className="text-sm text-gray-500">Đang tải...</p>
+            ) : notifications.length === 0 ? (
+              <p className="text-sm text-gray-500">Chưa có thông báo</p>
+            ) : (
+              <ul className="space-y-3 max-h-60 overflow-auto">
+                {notifications.slice(0,5).map(n => (
+                  <li key={n.id} className="p-3 border rounded hover:bg-gray-50">
+                    <div className={`text-sm ${n.read ? 'text-gray-600' : 'text-gray-900 font-medium'}`}>{n.message}</div>
+                    <div className="text-xs text-gray-400 mt-1">{n.payload?.sessionTitle || new Date(n.createdAt).toLocaleString()}</div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div className="mt-4 text-center">
+              <button onClick={() => navigate('/notifications')} className="text-sm text-blue-600 hover:underline">Xem tất cả</button>
+            </div>
+          </div>
         </div>
       </main>
     </MainLayout>

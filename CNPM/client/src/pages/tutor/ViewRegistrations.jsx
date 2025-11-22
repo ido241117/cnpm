@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Bell, ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { useAuth } from '../../contexts/AuthContext'
 import toast from 'react-hot-toast'
 import sessionService from '../../services/sessionService'
+import MainLayout from '../../components/Layout/MainLayout'
 
 const ViewRegistrations = () => {
   const { id } = useParams()
@@ -55,47 +56,8 @@ const ViewRegistrations = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <button 
-              onClick={() => navigate('/tutor/dashboard')}
-              className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors cursor-pointer"
-            >
-              <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
-              </svg>
-            </button>
-
-            <div className="flex items-center space-x-4">
-              <button 
-                onClick={() => navigate('/notifications')}
-                className="p-2 hover:bg-gray-100 rounded-full relative"
-              >
-                <Bell size={24} className="text-gray-600" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-              </button>
-
-              <div className="flex items-center space-x-3">
-                <img
-                  src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user?.name || 'User')}&background=4F46E5&color=fff`}
-                  alt="Avatar"
-                  className="w-12 h-12 rounded-full"
-                />
-                <div>
-                  <p className="text-lg font-medium text-gray-900">Welcome, {user?.name?.split(' ').pop() || 'User'}</p>
-                  <p className="text-sm text-gray-500">{getCurrentDate()}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
+    <MainLayout>
+      <div className="px-6 py-8">
         <div className="bg-white rounded-2xl shadow-sm p-8">
           {loading ? (
             <div className="text-center py-12">
@@ -204,8 +166,8 @@ const ViewRegistrations = () => {
             </>
           )}
         </div>
-      </main>
-    </div>
+      </div>
+    </MainLayout>
   )
 }
 

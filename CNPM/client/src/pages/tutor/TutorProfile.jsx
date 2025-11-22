@@ -160,27 +160,36 @@ const TutorProfile = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Giới tính
                 </label>
-                <input
-                  type="text"
+                <select
                   name="gender"
                   value={formData.gender}
                   onChange={handleChange}
                   disabled={!isEditing}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-600"
-                />
+                >
+                  <option value="">Chọn giới tính</option>
+                  <option value="Nam">Nam</option>
+                  <option value="Nữ">Nữ</option>
+                  <option value="Khác">Khác</option>
+                </select>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Khoa
                 </label>
-                <input
-                  type="text"
+                <select
                   name="faculty"
                   value={formData.faculty}
                   onChange={handleChange}
                   disabled={!isEditing}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-600"
-                />
+                >
+                  <option value="">Chọn khoa</option>
+                  <option value="Công nghệ thông tin">Công nghệ thông tin</option>
+                  <option value="Kỹ thuật máy tính">Kỹ thuật máy tính</option>
+                  <option value="Kinh tế">Kinh tế</option>
+                  <option value="Quản trị">Quản trị</option>
+                </select>
               </div>
             </div>
 
