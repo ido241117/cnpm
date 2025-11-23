@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Menu, X, Bell, User, LogOut, Calendar, Home, BookOpen, ClipboardList } from 'lucide-react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
+import notificationService from '../../services/notificationService'
 
 const MainLayout = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -9,11 +10,33 @@ const MainLayout = ({ children }) => {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
+  const [hasUnread, setHasUnread] = useState(false)
 
   const handleLogout = () => {
     logout()
     navigate('/login')
   }
+
+  // Load notifications to determine unread badge visibility
+  useEffect(() => {
+    let mounted = true
+    const load = async () => {
+      if (!user) {
+        if (mounted) setHasUnread(false)
+        return
+      }
+      try {
+        const res = await notificationService.getNotifications()
+        const list = res.data || []
+        const unread = list.some(n => !(n.read || n.readAt))
+        if (mounted) setHasUnread(Boolean(unread))
+      } catch (err) {
+        console.error('Error loading notifications for badge:', err)
+      }
+    }
+    load()
+    return () => { mounted = false }
+  }, [user, location.pathname])
 
   const studentMenu = [
     { name: 'Trang chủ', path: '/student/dashboard', icon: Home },
@@ -55,7 +78,9 @@ const MainLayout = ({ children }) => {
                 className="p-2 rounded-full hover:bg-gray-100 relative"
               >
                 <Bell size={20} className="text-gray-600" />
-                <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                {hasUnread && (
+                  <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full" />
+                )}
               </Link>
 
               <div className="relative">
