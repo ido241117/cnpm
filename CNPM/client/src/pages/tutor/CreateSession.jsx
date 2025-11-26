@@ -42,7 +42,7 @@ const CreateSession = () => {
     e.preventDefault()
     
     // Validation
-    if (!formData.title || !formData.date || !formData.capacity || !formData.startTime || !formData.endTime) {
+    if (!formData.title || !formData.date || !formData.capacity || !formData.startTime || !formData.endTime ||!formData.location) {
       toast.error('Vui lòng điền đầy đủ thông tin bắt buộc')
       return
     }
@@ -133,6 +133,7 @@ const CreateSession = () => {
                   <input
                     type='time'
                     name="startTime"
+                    required
                     value={formData.startTime}
                     onChange={handleChange}
                     className="px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
@@ -142,6 +143,7 @@ const CreateSession = () => {
                   <input
                   type = 'time'
                   name="endTime"
+                  required
                   value={formData.endTime}
                   onChange={handleChange}
                   className="px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
@@ -173,6 +175,7 @@ const CreateSession = () => {
               <input
                 type="text"
                 name="location"
+                required
                 value={formData.location}
                 onChange={handleChange}
                 placeholder="Phòng H6-101 hoặc https://meet.google.com/..."
@@ -228,7 +231,7 @@ const CreateSession = () => {
                 value={formData.capacity}
                 onChange={handleChange}
                 min="1"
-                max="50"
+                max="100"
                 required
                 className="flex-1 px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
               />
