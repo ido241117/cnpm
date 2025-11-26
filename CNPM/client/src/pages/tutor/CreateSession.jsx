@@ -42,7 +42,7 @@ const CreateSession = () => {
     e.preventDefault()
     
     // Validation
-    if (!formData.title || !formData.date || !formData.capacity) {
+    if (!formData.title || !formData.date || !formData.capacity || !formData.startTime || !formData.endTime) {
       toast.error('Vui lòng điền đầy đủ thông tin bắt buộc')
       return
     }
@@ -112,7 +112,7 @@ const CreateSession = () => {
             {/* Mô tả */}
             <div className="flex items-center gap-4">
               <label className="w-1/4 text-sm font-medium text-gray-900">
-                Mô tả
+                Tên buổi tư vấn
               </label>
               <input
                 type="text"
@@ -127,7 +127,7 @@ const CreateSession = () => {
             {/* Giờ */}
             <div className="flex items-center gap-4">
               <label className="w-1/4 text-sm font-medium text-gray-900">
-                Giờ
+                Giờ <span className="text-red-500">*</span>
               </label>
               <div className="flex-1 flex items-center gap-4">
                   <input
@@ -168,7 +168,7 @@ const CreateSession = () => {
             {/* Địa điểm */}
             <div className="flex items-center gap-4">
               <label className="w-1/4 text-sm font-medium text-gray-900">
-                Địa điểm
+                Địa điểm <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
@@ -207,24 +207,20 @@ const CreateSession = () => {
                   onChange={handleChange}
                   className="px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
                 />
-                <select
-                  name="registrationDeadlineTime"
-                  value={formData.registrationDeadlineTime}
-                  onChange={handleChange}
-                  className="px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
-                >
-                  <option value="02:30">02:30</option>
-                  <option value="08:00">08:00</option>
-                  <option value="12:00">12:00</option>
-                  <option value="18:00">18:00</option>
-                </select>
+                <input
+                    type='time'
+                    name="registrationDeadlineTime"
+                    value={formData.registrationDeadlineTime}
+                    onChange={handleChange}
+                    className="px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
+                  ></input>
               </div>
             </div>
 
             {/* Số lượng sinh viên */}
             <div className="flex items-center gap-4">
               <label className="w-1/4 text-sm font-medium text-gray-900">
-                Số lượng sinh viên
+                Số lượng sinh viên <span className="text-red-500">*</span>
               </label>
               <input
                 type="number"
