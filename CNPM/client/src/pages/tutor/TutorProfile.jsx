@@ -148,7 +148,7 @@ const TutorProfile = () => {
                   name="staffId"
                   value={formData.staffId}
                   onChange={handleChange}
-                  disabled={!isEditing}
+                  disabled={true}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-600"
                 />
               </div>

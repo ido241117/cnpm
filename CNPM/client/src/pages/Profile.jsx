@@ -46,13 +46,13 @@ const Profile = () => {
     if (user) {
       const data = {
         name: user.name || '',
-        studentId: user.id?.slice(-6) || '',
+        studentId: user.id?.slice(-7) || '',
         gender: user.gender || '',
-        class: '',
+        class: user.class || '',
         dob: user.dob || '',
-        support: '',
+        support: user.support || '',
         email: user.email || '',
-        expertise: user.tutorProfile?.expertise?.join(', ') || '',
+        expertise: user.expertise || user.tutorProfile?.expertise?.join(', ') || '',
         phone: user.phone || '',
         faculty: user.faculty || ''
       }
@@ -94,7 +94,10 @@ const Profile = () => {
         phone: formData.phone,
         gender: formData.gender,
         dob: formData.dob,
-        faculty: formData.faculty
+        faculty: formData.faculty,
+        class: formData.class,
+        support: formData.support,
+        expertise: formData.expertise
       })
       // If server returned updated user, update context + localStorage so UI reflects changes immediately
       if (res && res.data) {
@@ -312,7 +315,7 @@ const Profile = () => {
                   name="studentId"
                   value={formData.studentId}
                   onChange={handleChange}
-                  disabled={!isEditing}
+                  disabled={true}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-50 disabled:text-gray-600"
                 />
               </div>

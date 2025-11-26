@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "550e8400-e29b-41d4-a716-446655440001",
+      "id": "550e8400-e29b-41d4-a716-446652310001",
       "role": "STUDENT",
       "email": "student1@hcmut.edu.vn",
       "password": "$2a$10$nolao9o/yKa85XqCQaimN.fyE7V4tpg91nPvFSJYQ2O8aIC5McaEK",
@@ -15,7 +15,7 @@
       "tutorProfile": null
     },
     {
-      "id": "550e8400-e29b-41d4-a716-446655440002",
+      "id": "550e8400-e29b-41d4-a716-446652420002",
       "role": "STUDENT",
       "email": "student2@hcmut.edu.vn",
       "password": "$2a$10$nolao9o/yKa85XqCQaimN.fyE7V4tpg91nPvFSJYQ2O8aIC5McaEK",
@@ -29,7 +29,7 @@
       "tutorProfile": null
     },
     {
-      "id": "550e8400-e29b-41d4-a716-446655440003",
+      "id": "550e8400-e29b-41d4-a716-446651750003",
       "role": "TUTOR",
       "email": "tutor1@hcmut.edu.vn",
       "password": "$2a$10$EUhfRd.E6KTI3fCdXIjrUOg4jEzQRa6nNxwzw.Ky0W/Pih3X6I2jK",
@@ -50,7 +50,7 @@
       }
     },
     {
-      "id": "550e8400-e29b-41d4-a716-446655440004",
+      "id": "550e8400-e29b-41d4-a716-446652450004",
       "role": "TUTOR",
       "email": "tutor2@hcmut.edu.vn",
       "password": "$2a$10$EUhfRd.E6KTI3fCdXIjrUOg4jEzQRa6nNxwzw.Ky0W/Pih3X6I2jK",
