@@ -46,7 +46,11 @@ const CreateSession = () => {
       toast.error('Vui lòng điền đầy đủ thông tin bắt buộc')
       return
     }
-
+    
+    if((formData.registrationDeadline > formData.date) || (formData.registrationDeadline == formData.date && formData.registrationDeadlineTime > formData.startTime)){
+      toast.error('Hạn đăng ký phải là trước khi diễn ra buổi tư vấn!')
+      return
+    }
     setLoading(true)
 
     try {
@@ -126,53 +130,23 @@ const CreateSession = () => {
                 Giờ
               </label>
               <div className="flex-1 flex items-center gap-4">
-                  <select
+                  <input
+                    type='time'
                     name="startTime"
                     value={formData.startTime}
                     onChange={handleChange}
                     className="px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
                   >
-                    {(() => {
-                      const opts = [];
-                      // generate 30-minute steps from 07:00 to 18:00 (inclusive)
-                      for (let h = 7; h <= 18; h++) {
-                        for (let m of [0, 30]) {
-                          const hh = String(h).padStart(2,'0');
-                          const mm = String(m).padStart(2,'0');
-                          const val = `${hh}:${mm}`;
-                          opts.push(<option key={val} value={val}>{val}</option>);
-                          // don't add 18:30
-                          if (h === 18) break;
-                        }
-                      }
-                      return opts;
-                    })()}
-                  </select>
+                  </input>
                 <span className="text-gray-500">-</span>
-                  <select
-                    name="endTime"
-                    value={formData.endTime}
-                    onChange={handleChange}
-                    className="px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
-                  >
-                    {(() => {
-                      const opts = [];
-                      for (let h = 7; h <= 18; h++) {
-                        for (let m of [0, 30]) {
-                          const hh = String(h).padStart(2,'0');
-                          const mm = String(m).padStart(2,'0');
-                          const val = `${hh}:${mm}`;
-                          opts.push(<option key={val} value={val}>{val}</option>);
-                          if (h === 18) break;
-                        }
-                      }
-                      // ensure 18:00 present explicitly
-                      if (!opts.some(o => o.props && o.props.value === '18:00')) {
-                        opts.push(<option key={'18:00'} value={'18:00'}>{'18:00'}</option>);
-                      }
-                      return opts;
-                    })()}
-                  </select>
+                  <input
+                  type = 'time'
+                  name="endTime"
+                  value={formData.endTime}
+                  onChange={handleChange}
+                  className="px-4 py-3 border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
+                >
+                </input>
               </div>
             </div>
 
