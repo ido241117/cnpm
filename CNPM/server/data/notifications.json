@@ -13,7 +13,7 @@
           "newStartAt": "2025-11-26T09:00:00Z"
         }
       },
-      "readAt": "2025-11-22T01:57:50.201Z",
+      "readAt": "2025-11-26T04:02:55.499Z",
       "createdAt": "2025-11-15T10:30:00Z"
     },
     {
@@ -28,8 +28,7 @@
       },
       "readAt": "2025-11-16T08:00:00Z",
       "createdAt": "2025-11-15T16:00:00Z"
-    }
-    ,
+    },
     {
       "id": "950e8400-e29b-41d4-a716-446655440010",
       "userId": "550e8400-e29b-41d4-a716-446655440003",
@@ -38,7 +37,10 @@
         "sessionId": "650e8400-e29b-41d4-a716-446655440010",
         "sessionTitle": "Tư vấn Lập trình Web - Buổi 1",
         "message": "Sinh viên Nguyễn Văn A đã đăng ký buổi tư vấn 'Tư vấn Lập trình Web - Buổi 1'",
-        "metadata": { "studentId": "550e8400-e29b-41d4-a716-446655440001", "studentEmail": "student1@hcmut.edu.vn" }
+        "metadata": {
+          "studentId": "550e8400-e29b-41d4-a716-446655440001",
+          "studentEmail": "student1@hcmut.edu.vn"
+        }
       },
       "readAt": null,
       "createdAt": "2025-11-20T09:00:00Z"
@@ -51,7 +53,10 @@
         "sessionId": "650e8400-e29b-41d4-a716-446655440010",
         "sessionTitle": "Tư vấn Lập trình Web - Buổi 1",
         "message": "Buổi tư vấn 'Tư vấn Lập trình Web - Buổi 1' đã được cập nhật: thay đổi phòng từ H6-101 sang H6-102",
-        "metadata": { "oldRoom": "H6-101", "newRoom": "H6-102" }
+        "metadata": {
+          "oldRoom": "H6-101",
+          "newRoom": "H6-102"
+        }
       },
       "readAt": null,
       "createdAt": "2025-11-21T11:30:00Z"

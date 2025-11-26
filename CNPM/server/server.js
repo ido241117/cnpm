@@ -618,6 +618,73 @@ app.patch('/api/sessions/:id', authenticate, authorize('TUTOR'), async (req, res
       }
     }
     
+    // Build effective values for checking conflicts (merge existing + updates)
+    const effectiveStart = updates.startAt ? updates.startAt : session.startAt;
+    const effectiveEnd = updates.endAt ? updates.endAt : session.endAt;
+    const effectiveMode = updates.mode ? updates.mode : session.mode;
+    const effectiveRoom = (updates.room !== undefined) ? updates.room : session.room;
+
+    // Additional validation for mode/room/url when changing mode or when provided
+    if (effectiveMode === 'OFFLINE' && !effectiveRoom) {
+      return res.status(400).json({
+        success: false,
+        error: { code: 'VALIDATION_ERROR', message: 'Buổi offline phải có phòng' }
+      });
+    }
+
+    if (effectiveMode === 'ONLINE') {
+      const effectiveUrl = (updates.url !== undefined) ? updates.url : session.url;
+      if (!effectiveUrl) {
+        return res.status(400).json({
+          success: false,
+          error: { code: 'VALIDATION_ERROR', message: 'Buổi online phải có link' }
+        });
+      }
+    }
+
+    // Conflict checks: tutor overlapping sessions (excluding current session)
+    const tutorConflict = sessionsData.sessions.find(s =>
+      s.id !== sessionId &&
+      s.tutorId === req.user.userId &&
+      s.status !== 'CANCELLED' &&
+      new Date(s.startAt) < new Date(effectiveEnd) &&
+      new Date(s.endAt) > new Date(effectiveStart)
+    );
+
+    if (tutorConflict) {
+      return res.status(409).json({
+        success: false,
+        error: {
+          code: 'SCHEDULE_CONFLICT',
+          message: 'Bạn đã có buổi tư vấn khác vào thời gian này',
+          details: tutorConflict
+        }
+      });
+    }
+
+    // Room conflict when effective mode is OFFLINE (exclude current session)
+    if (effectiveMode === 'OFFLINE') {
+      const roomConflict = sessionsData.sessions.find(s =>
+        s.id !== sessionId &&
+        s.mode === 'OFFLINE' &&
+        s.room === effectiveRoom &&
+        s.status !== 'CANCELLED' &&
+        new Date(s.startAt) < new Date(effectiveEnd) &&
+        new Date(s.endAt) > new Date(effectiveStart)
+      );
+
+      if (roomConflict) {
+        return res.status(409).json({
+          success: false,
+          error: {
+            code: 'ROOM_CONFLICT',
+            message: 'Phòng đã được đặt vào thời gian này',
+            details: roomConflict
+          }
+        });
+      }
+    }
+    
     // Update session
     sessionsData.sessions[sessionIndex] = {
       ...session,

@@ -8,8 +8,8 @@
       "mode": "OFFLINE",
       "room": "H6-101",
       "url": null,
-      "startAt": "2025-11-25T21:00:00",
-      "endAt": "2025-11-25T23:00:00",
+      "startAt": "2025-12-02T14:00:00",
+      "endAt": "2025-12-02T16:00:00",
       "capacity": 10,
       "currentCount": 1,
       "status": "OPEN",
@@ -18,8 +18,8 @@
         "React",
         "Node.js"
       ],
-      "createdAt": "2025-11-10T09:00:00Z",
-      "updatedAt": "2025-11-18T04:52:56.798Z"
+      "createdAt": "2025-12-01T09:00:00Z",
+      "updatedAt": "2025-12-08T04:52:56.798Z"
     },
     {
       "id": "650e8400-e29b-41d4-a716-446655440002",
@@ -29,18 +29,18 @@
       "mode": "ONLINE",
       "room": null,
       "url": "https://meet.google.com/abc-defg-hij",
-      "startAt": "2025-11-26T09:00:00Z",
-      "endAt": "2025-11-26T11:00:00Z",
+      "startAt": "2025-12-03T09:00:00",
+      "endAt": "2025-12-03T11:00:00",
       "capacity": 15,
-      "currentCount": 8,
+      "currentCount": 7,
       "status": "OPEN",
       "subjects": [
         "Cơ sở dữ liệu",
         "SQL",
         "MongoDB"
       ],
-      "createdAt": "2025-11-10T10:00:00Z",
-      "updatedAt": "2025-11-15T14:30:00Z"
+      "createdAt": "2025-12-01T10:00:00Z",
+      "updatedAt": "2025-12-08T14:30:00Z"
     },
     {
       "id": "650e8400-e29b-41d4-a716-446655440003",
@@ -50,8 +50,8 @@
       "mode": "OFFLINE",
       "room": "H6-202",
       "url": null,
-      "startAt": "2025-11-27T14:00:00Z",
-      "endAt": "2025-11-27T16:30:00Z",
+      "startAt": "2025-12-04T14:00:00",
+      "endAt": "2025-12-04T16:30:00",
       "capacity": 12,
       "currentCount": 5,
       "status": "OPEN",
@@ -60,8 +60,8 @@
         "Python",
         "AI"
       ],
-      "createdAt": "2025-11-11T08:00:00Z",
-      "updatedAt": "2025-11-11T08:00:00Z"
+      "createdAt": "2025-12-02T08:00:00Z",
+      "updatedAt": "2025-12-02T08:00:00Z"
     },
     {
       "id": "650e8400-e29b-41d4-a716-446655440004",
@@ -71,8 +71,8 @@
       "mode": "ONLINE",
       "room": null,
       "url": "https://meet.google.com/xyz-abcd-efg",
-      "startAt": "2025-11-28T10:00:00Z",
-      "endAt": "2025-11-28T12:00:00Z",
+      "startAt": "2025-12-05T10:00:00",
+      "endAt": "2025-12-05T12:00:00",
       "capacity": 20,
       "currentCount": 20,
       "status": "FULL",
@@ -81,8 +81,8 @@
         "AI",
         "Python"
       ],
-      "createdAt": "2025-11-11T09:00:00Z",
-      "updatedAt": "2025-11-18T10:00:00Z"
+      "createdAt": "2025-12-02T09:00:00Z",
+      "updatedAt": "2025-12-08T10:00:00Z"
     },
     {
       "id": "650e8400-e29b-41d4-a716-446655440005",
@@ -92,16 +92,16 @@
       "mode": "OFFLINE",
       "room": "H6-101",
       "url": null,
-      "startAt": "2025-11-15T14:00:00Z",
-      "endAt": "2025-11-15T16:00:00Z",
+      "startAt": "2025-12-06T14:00:00",
+      "endAt": "2025-12-06T16:00:00",
       "capacity": 8,
-      "currentCount": 6,
+      "currentCount": 5,
       "status": "COMPLETED",
       "subjects": [
         "Lập trình web"
       ],
-      "createdAt": "2025-11-08T09:00:00Z",
-      "updatedAt": "2025-11-15T16:00:00Z"
+      "createdAt": "2025-11-28T09:00:00Z",
+      "updatedAt": "2025-12-06T16:00:00Z"
     },
     {
       "id": "650e8400-e29b-41d4-a716-446655440999",
@@ -111,8 +111,8 @@
       "mode": "ONLINE",
       "room": null,
       "url": "https://meet.google.com/test-event-today",
-      "startAt": "2025-11-18T14:00:00Z",
-      "endAt": "2025-11-18T15:00:00Z",
+      "startAt": "2025-12-08T14:00:00",
+      "endAt": "2025-12-08T15:00:00",
       "capacity": 10,
       "currentCount": 0,
       "status": "OPEN",
@@ -120,8 +120,8 @@
         "Test",
         "Lập trình web"
       ],
-      "createdAt": "2025-11-18T11:35:00Z",
-      "updatedAt": "2025-11-18T11:35:00Z"
+      "createdAt": "2025-12-08T11:35:00Z",
+      "updatedAt": "2025-12-08T11:35:00Z"
     }
   ]
 }
