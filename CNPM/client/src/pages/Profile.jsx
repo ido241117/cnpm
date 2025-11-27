@@ -46,7 +46,7 @@ const Profile = () => {
     if (user) {
       const data = {
         name: user.name || '',
-        studentId: user.id?.slice(-7) || '',
+        studentId: user.id?.slice(-6) || '',
         gender: user.gender || '',
         class: user.class || '',
         dob: user.dob || '',
