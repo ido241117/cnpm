@@ -226,6 +226,21 @@ app.get('/api/auth/me', authenticate, async (req, res) => {
 app.patch('/api/users/me', authenticate, async (req, res) => {
   try {
     const updates = req.body;
+    // Validate phone format if phone is being updated
+    if (updates.phone && !/^\d{10,12}$/.test(updates.phone)) {
+      return res.status(400).json({
+        success: false,
+        error: { code: 'INVALID_PHONE', message: 'Định dạng số điện thoại không hợp lệ.' }
+      });
+    }
+    // Validate email format if email is being updated
+    if (updates.email && !updates.email.includes('@')) {
+      return res.status(400).json({
+        success: false,
+        error: { code: 'INVALID_EMAIL', message: 'Định dạng email không hợp lệ.' }
+      });
+
+    }
     const usersData = await readJSON('users.json');
     
     const userIndex = usersData.users.findIndex(u => u.id === req.user.userId);

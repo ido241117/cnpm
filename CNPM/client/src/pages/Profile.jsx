@@ -82,7 +82,23 @@ const Profile = () => {
     setIsEditing(true)
   }
 
+  const validateProfile = () => {
+    // Phone validation
+    if (formData.phone && !/^\d{10,12}$/.test(formData.phone)) {
+      toast.error('Định dạng số điện thoại không hợp lệ')
+      return false
+    }
+    if (formData.email && !formData.email.includes('@')) {
+      toast.error('Định dạng email không hợp lệ')
+      return false
+    }
+    return true
+  }
+
   const handleSave = () => {
+    if (!validateProfile()) {
+      return
+    }
     setShowConfirmModal(true)
   }
 
